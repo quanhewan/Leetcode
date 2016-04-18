@@ -20,3 +20,27 @@ var preorderTraversal = function(root) {
 };
 
 //iterative
+var preorderTraversal = function(root) {
+	var result = [];
+	var stack = [];
+	var currentNode;
+
+	if(root === null){
+		return result;
+	}
+
+	stack.push(root);
+
+	while(stack.length !== 0){
+		currentNode = stack.pop();
+		result.push(currentNode.val);
+		if(currentNode.right !== null){
+			stack.push(currentNode.right);
+		}
+		if(currentNode.left !== null){
+			stack.push(currentNode.left);
+		}
+	}
+
+	return result;
+};
