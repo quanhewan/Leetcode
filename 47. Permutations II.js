@@ -4,6 +4,7 @@
  * @param {number[]} nums
  * @return {number[][]}
  */
+ // 1. iterative
 var permuteUnique = function(nums) {
     var result = [[]];
     var length = nums.length;
@@ -27,3 +28,33 @@ var permuteUnique = function(nums) {
     return result;
 };
 
+// 2. recursive
+
+var permuteUnique = function(nums) {
+    var result = [];
+    var list = [];
+    var visited = [];
+    nums.sort(function(a,b){return a - b;});
+    permuteHelper(result, list, nums, visited);
+    return result;
+
+    function permuteHelper(result, list, nums, visited){
+        if(list.length === nums.length){
+            result.push(list.slice());
+            return;
+        }
+
+        for(var i = 0; i < nums.length; i++){
+            if(visited[i] || (nums[i] === nums[i - 1] && !visited[i-1])){
+                continue;
+            }
+            var length = list.length;
+            list.push(nums[i]);
+            visited[i] = true;
+            permuteHelper(result, list, nums, visited);
+            visited[i] = false;
+            list.length = length;
+        }
+    }
+};
+ 
